@@ -1,18 +1,18 @@
-// SPDX-License-Identifier: UNLICENSED
-pragma solidity ^0.8.13;
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
 
-import {Script, console} from "forge-std/Script.sol";
+import "forge-std/Script.sol";
 import {Counter} from "../src/Counter.sol";
 
-contract CounterScript is Script {
-    Counter public counter;
+contract DeployMyContract is Script {
+    function run() external {
+        uint256 deployerPrivateKey = vm.envUint("PRIVATE_KEY");
+        vm.startBroadcast(deployerPrivateKey);
 
-    function setUp() public {}
+        // Deploy your contract
+        Counter myContract = new Counter();
 
-    function run() public {
-        vm.startBroadcast();
-
-        counter = new Counter();
+        console.log("MyContract deployed at:", address(myContract));
 
         vm.stopBroadcast();
     }
